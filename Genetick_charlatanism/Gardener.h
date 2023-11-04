@@ -21,11 +21,15 @@ public:
 	}
 	void setGarden(std::vector<std::vector<int>> gardenState) { _gardenState = gardenState; }
 	void obstacleHandler();
+	int getDeadCount(){ return _deadCount; }
 
 private:
 	std::vector<std::vector<int>> _gardenState;
-	std::vector<unsigned int> _gardenerPos; // [x, y]
+	std::vector<int> _gardenerPos; // [x, y]
 	unsigned int _itNum;
+	int _deadCount;
 	bool _ringOut = false;
 	bool _obstacle = false;
+	bool _deadlock = false;
+	bool _validMove = true;
 };

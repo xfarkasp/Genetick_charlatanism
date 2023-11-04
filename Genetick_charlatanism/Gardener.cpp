@@ -3,101 +3,115 @@
 
 Gardener::Gardener(std::vector<std::vector<int>> gardenState, unsigned int genNum) {
 	_itNum = genNum;
+	_deadCount = 0;
 	_gardenState = gardenState;
 	_gardenerPos.push_back(0);
 	_gardenerPos.push_back(0);
 }
 
 bool Gardener::goUp() {
-	//reached end of the garden
-	std::cout << (_gardenerPos.at(0) - 1) << std::endl;
-	if (_gardenerPos.at(0) - 1 <= 0) {
-		_ringOut = true;
-		_gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) = _itNum;
-		return false;
-	}
 	// if there is an obsticle in the way up, return false to traverseGarden()
-	if (_gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) != 0) {
+	if (_gardenerPos.at(0) - 1 > 0 && _gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) != 0) {
 		_obstacle = true;
 		return false;
 	}
+
+	//reached end of the garden
+	if (_gardenerPos.at(0) - 1 <= 0) {
+		_ringOut = true;
+		if (_gardenerPos.at(0) - 1 >= 0)
+			_gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) = _itNum;
+		return true;
+	}
+	
 	else {
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) = _itNum;
-		printGarden();
+		_validMove = true;
+		//printGarden();
+		_gardenerPos.at(0)--;
 	}
 	
-	_gardenerPos.at(0)--;
+	
 	return true;
 }
 
 bool Gardener::goDown() {
-	//reached end of the garden
-	std::cout << (_gardenerPos.at(0) + 1) << std::endl;
-	if (_gardenerPos.at(0) + 1 >= _gardenState.size() - 1) {
-		_ringOut = true;
-		_gardenState.at(_gardenerPos.at(0) + 1).at(_gardenerPos.at(1)) = _itNum;
-		return false;
-	}
 	// if there is an obsticle in the way down, return false to traverseGarden()
-	if (_gardenState.at(_gardenerPos.at(0) + 1).at(_gardenerPos.at(1)) != 0) {
+	if (_gardenerPos.at(0) + 1 < _gardenState.size() && _gardenState.at(_gardenerPos.at(0) + 1).at(_gardenerPos.at(1)) != 0) {
 		_obstacle = true;
 		return false;
 	}
+
+	//reached end of the garden
+	if (_gardenerPos.at(0) + 1 >= _gardenState.size() - 1) {
+		_ringOut = true;
+		if(_gardenerPos.at(0) + 1 <= _gardenState.size() - 1)
+			_gardenState.at(_gardenerPos.at(0) + 1).at(_gardenerPos.at(1)) = _itNum;
+		return true;
+	}
+	
 	else {
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0) + 1).at(_gardenerPos.at(1)) = _itNum;
-		printGarden();
+		_validMove = true;
+		//printGarden();
+		_gardenerPos.at(0)++;
 	}
 	
-	_gardenerPos.at(0)++;
 	return true;
 }
 
 bool Gardener::goRight() {
-	//reached end of the garden
-	std::cout << (_gardenerPos.at(1) + 1) << std::endl;
-	if (_gardenerPos.at(1) + 1 >= _gardenState.at(_gardenerPos.at(0)).size() - 1) {
-		_ringOut = true;
-		_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) + 1) = _itNum;
-		return false;
-	}
 	// if there is an obsticle in the way up, return false to traverseGarden()
-	if (_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) + 1) != 0) {
+	if (_gardenerPos.at(1) + 1 < _gardenState.at(_gardenerPos.at(0)).size() && _gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) + 1) != 0) {
 		_obstacle = true;
 		return false;
 	}
+
+	//reached end of the garden
+	if (_gardenerPos.at(1) + 1 >= _gardenState.at(_gardenerPos.at(0)).size() - 1) {
+		_ringOut = true;
+		if (_gardenerPos.at(1) + 1 <= _gardenState.at(_gardenerPos.at(0)).size() - 1)
+			_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) + 1) = _itNum;
+		return true;
+	}
+	
 	else {
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) + 1) = _itNum;
-		printGarden();
+		_validMove = true;
+		//printGarden();
+		_gardenerPos.at(1)++;
 	}
 	
-	_gardenerPos.at(1)++;
-
 	return true;
 }
 
 bool Gardener::goLeft() {
-	//reached end of the garden
-	std::cout << (_gardenerPos.at(1) - 1) << std::endl;
-	if (_gardenerPos.at(1) - 1 <= 0) {
-		_ringOut = true;
-		_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) = _itNum;
-		return false;
-	}
 	// if there is an obsticle in the way up, return false to traverseGarden()
-	if (_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) != 0) {
+	if (_gardenerPos.at(1) - 1 > 0 &&_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) != 0) {
 		_obstacle = true;
 		return false;
 	}
+
+	//reached end of the garden
+	if (_gardenerPos.at(1) - 1 <= 0) {
+		_ringOut = true;
+		if (_gardenerPos.at(1) - 1 >= 0)
+			_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) = _itNum;
+		return true;
+	}
+	
 	else {
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) = _itNum;
-		printGarden();
+		_validMove = true;
+		//printGarden();
+		_gardenerPos.at(1)--;
 	}
 	
-	_gardenerPos.at(1)--;
+	
 	return true;
 }
 
@@ -107,8 +121,7 @@ void Gardener::obstacleHandler() {
 	std::mt19937 gen(rd()); // Mersenne Twister engine
 	std::uniform_int_distribution<int> directionRandomizer(0, 3);
 	int randomValue = directionRandomizer(gen);
-
-	if (randomValue == 0) {
+	/*if (randomValue == 0) {
 		while (goDown())
 			continue;
 	}
@@ -123,9 +136,38 @@ void Gardener::obstacleHandler() {
 	else if (randomValue == 3) {
 		while (goLeft())
 			continue;
+	}*/
+	while (_validMove && !_ringOut) {
+		_validMove = false;
+		if (goDown()) {
+			while (goDown()) {
+				if (_ringOut)
+					return;
+			}
+		}
+		else if (goUp()) {
+			while (goUp()) {
+				if (_ringOut)
+					return;
+			}
+		}
+		else if (goRight()) {
+			while (goRight()) {
+				if (_ringOut)
+					return;
+			}
+		}
+		else if (goLeft()) {
+			while (goLeft()) {
+				if (_ringOut)
+					return;
+			}
+		}
 	}
-	else {
-		std::cout << " monk is trapped!";
+	if (!_ringOut) {
+		//std::cout << " monk is trapped!" << std::endl;
+		_deadCount++;
+		_deadlock = true;
 	}
 }
 
@@ -136,34 +178,44 @@ std::vector<std::vector<int>> Gardener::traverse() {
 
 	_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1)) = _itNum;
 	
-	while (_ringOut != true) {
-		printGarden();
+	while (!_ringOut && !_deadlock) {
+		//printGarden();
 
 		if (_obstacle) {
 			obstacleHandler();
 		}
 
 		else if (_gardenerPos.at(0) == 0)
-			while (goDown())
-				continue;
+			while (goDown()) {
+				if (_ringOut)
+					break;
+			}
 
 		else if (_gardenerPos.at(0) == _gardenState.size() - 1)
-			while (goUp())
-				continue;
+			while (goUp()) {
+				if (_ringOut)
+					break;
+			}
 
 		else if (_gardenerPos.at(1) == _gardenState.at(0).size() - 1)
-			while (goLeft())
-				continue;
+			while (goLeft()) {
+				if (_ringOut)
+					break;
+			}
 
 		else if (_gardenerPos.at(1) == 0)
-			while (goRight())
-				continue;
+			while (goRight()) {
+				if (_ringOut)
+					break;
+			}
 		else
 			break;
 	}
-	printGarden();
+	//printGarden();
 	_obstacle = false;
 	_ringOut = false;
+	_deadlock = false;
+	_validMove = true;
 	_itNum++;
 	return _gardenState;
 }

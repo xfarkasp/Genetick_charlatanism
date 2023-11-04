@@ -7,7 +7,7 @@ using namespace std;
 int main() {
 
 	std::vector<std::vector<int>> garden;
-	/*for (size_t i = 0; i < 10; i++) {
+	for (size_t i = 0; i < 10; i++) {
 		std::vector<int> row;
 		for (size_t j = 0; j < 12; j++) {
 			if (i == 1 && j == 5 ||
@@ -26,12 +26,12 @@ int main() {
 		}
 		std::cout << std::endl;
 		garden.push_back(row);
-	}*/
-	for (size_t i = 0; i < 6; i++) {
+	}
+	/*for (size_t i = 0; i < 8; i++) {
 		std::vector<int> row;
 		for (size_t j = 0; j < 10; j++) {
-			if (i == 3 && j == 4 ||
-				i == 3 && j == 5) {
+			if (i == 3 && j == 6 ||
+				i == 4 && j == 4) {
 				row.push_back(-1);
 				std::cout << row.at(j) << " ";
 			}
@@ -42,7 +42,7 @@ int main() {
 		}
 		std::cout << std::endl;
 		garden.push_back(row);
-	}
+	}*/
 	std::cout << std::endl;
 
 	std::unique_ptr<Genetics> genetics = std::make_unique<Genetics>(garden);
