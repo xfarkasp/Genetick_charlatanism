@@ -10,7 +10,7 @@ Genetics::Genetics(std::vector<std::vector<int>> gardenState) {
 };
 
 void Genetics::initFirstGen(){
-	std::unique_ptr<Gardener> monk = std::make_unique<Gardener>(_gardenState, _currGen);
+	
 	std::vector<Gene> firstGen;
 	int rows[2] = { 0, _gardenState.size() - 1 };
 	int cols[2] = { 0, _gardenState.at(0).size() - 1 };
@@ -46,13 +46,18 @@ void Genetics::initFirstGen(){
 			}
 			currGene.startingPositions.push_back(randomStartPos);
 		}
-		
+		fitnessFunction(currGene);
 		firstGen.push_back(currGene);
 	}
 	_generations.push_back(firstGen);
 
 }
 
-int Genetics::fitnessFunction() {
-
+int Genetics::fitnessFunction(Gene gen) {
+	std::unique_ptr<Gardener> monk = std::make_unique<Gardener>(_gardenState, _currGen);
+	for (auto it : gen.startingPositions) {
+		monk->setPositions(it.first, it.second);
+		monk->traverse();
+	}
+	return 0;
 }

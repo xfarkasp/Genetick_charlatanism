@@ -13,7 +13,7 @@ struct Gene
 class Genetics {
 public:
 	Genetics(std::vector<std::vector<int>> gardenState);
-	int fitnessFunction();
+	int fitnessFunction(Gene gen);
 	void mutateGene(Gene gen);
 	void crossGenes(Gene gen1, Gene gen2);
 	void initFirstGen();
