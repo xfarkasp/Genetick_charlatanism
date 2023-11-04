@@ -27,4 +27,5 @@ private:
 	std::vector<unsigned int> _gardenerPos; // [x, y]
 	unsigned int _itNum;
 	bool _ringOut = false;
+	bool _obstacle = false;
 };

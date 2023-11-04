@@ -29,7 +29,7 @@ void Genetics::initFirstGen(){
 		std::uniform_int_distribution<int> randomRow(0, _gardenState.size() - 1);
 
 		int randomValue = distribution(gen);
-		for (size_t j = 0; j < _gardenState.at(0).size(); j++) {
+		for (size_t j = 0; j < _gardenState.at(0).size() * 2; j++) {
 			std::pair<int, int> randomStartPos;
 			if (randomValue == 1) {
 
