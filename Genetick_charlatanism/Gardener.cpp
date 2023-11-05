@@ -11,7 +11,7 @@ Gardener::Gardener(std::vector<std::vector<int>> gardenState, unsigned int genNu
 
 bool Gardener::goUp() {
 	// if there is an obsticle in the way up, return false to traverseGarden()
-	if (_gardenerPos.at(0) - 1 > 0 && _gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) != 0) {
+	if (_gardenerPos.at(0) - 1 >= 0 && _gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) != 0) {
 		_obstacle = true;
 		return false;
 	}
@@ -25,6 +25,7 @@ bool Gardener::goUp() {
 	}
 	
 	else {
+		_lastAction = "UP";
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0) - 1).at(_gardenerPos.at(1)) = _itNum;
 		_validMove = true;
@@ -52,6 +53,7 @@ bool Gardener::goDown() {
 	}
 	
 	else {
+		_lastAction = "DOWN";
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0) + 1).at(_gardenerPos.at(1)) = _itNum;
 		_validMove = true;
@@ -78,6 +80,7 @@ bool Gardener::goRight() {
 	}
 	
 	else {
+		_lastAction = "RIGHT";
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) + 1) = _itNum;
 		_validMove = true;
@@ -90,7 +93,7 @@ bool Gardener::goRight() {
 
 bool Gardener::goLeft() {
 	// if there is an obsticle in the way up, return false to traverseGarden()
-	if (_gardenerPos.at(1) - 1 > 0 &&_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) != 0) {
+	if (_gardenerPos.at(1) - 1 >= 0 &&_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) != 0) {
 		_obstacle = true;
 		return false;
 	}
@@ -104,6 +107,7 @@ bool Gardener::goLeft() {
 	}
 	
 	else {
+		_lastAction = "LEFT";
 		// change empty position to the number of current movement iteration value, to visualize gardener movement
 		_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1) - 1) = _itNum;
 		_validMove = true;
@@ -139,25 +143,25 @@ void Gardener::obstacleHandler() {
 	}*/
 	while (_validMove && !_ringOut) {
 		_validMove = false;
-		if (goDown()) {
+		if (_lastAction != "UP" && goDown()) {
 			while (goDown()) {
 				if (_ringOut)
 					return;
 			}
 		}
-		else if (goUp()) {
+		else if (_lastAction != "DOWN" && goUp()) {
 			while (goUp()) {
 				if (_ringOut)
 					return;
 			}
 		}
-		else if (goRight()) {
+		else if (_lastAction != "LEFT" && goRight()) {
 			while (goRight()) {
 				if (_ringOut)
 					return;
 			}
 		}
-		else if (goLeft()) {
+		else if (_lastAction != "RIGHT" && goLeft()) {
 			while (goLeft()) {
 				if (_ringOut)
 					return;
@@ -177,6 +181,14 @@ std::vector<std::vector<int>> Gardener::traverse() {
 		return _gardenState;
 
 	_gardenState.at(_gardenerPos.at(0)).at(_gardenerPos.at(1)) = _itNum;
+	if (_gardenerPos.at(0) == 0)
+		_lastAction = "DOWN";
+	else if (_gardenerPos.at(0) == _gardenState.size()-1)
+		_lastAction = "UP";
+	else if (_gardenerPos.at(1) == _gardenState.at(_gardenerPos.at(0)).size() - 1)
+		_lastAction = "LEFT";
+	else if (_gardenerPos.at(1) == 0)
+		_lastAction = "RIGHT";
 	
 	while (!_ringOut && !_deadlock) {
 		//printGarden();
@@ -216,6 +228,7 @@ std::vector<std::vector<int>> Gardener::traverse() {
 	_ringOut = false;
 	_deadlock = false;
 	_validMove = true;
+	_lastAction = " ";
 	_itNum++;
 	return _gardenState;
 }

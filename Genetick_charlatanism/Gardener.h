@@ -32,4 +32,5 @@ private:
 	bool _obstacle = false;
 	bool _deadlock = false;
 	bool _validMove = true;
+	std::string _lastAction = " ";
 };
