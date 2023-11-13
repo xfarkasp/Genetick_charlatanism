@@ -11,15 +11,9 @@ public:
 	bool goLeft();
 	std::vector<std::vector<int>> traverse();
 	void printGarden();
-	void setGenNum(int genNum) { _itNum = genNum; }
-	void setPosX(int x) { _gardenerPos.at(0) = x; }
-	int getPosX() { return _gardenerPos.at(0); }
-	void setPosY(int y) { _gardenerPos.at(1) = y; }
-	int getPosY() { return _gardenerPos.at(1); }
 	void setPositions(int x, int y) {
 		_gardenerPos.at(0) = x; _gardenerPos.at(1) = y;
 	}
-	void setGarden(std::vector<std::vector<int>> gardenState) { _gardenState = gardenState; }
 	void obstacleHandler();
 	int getDeadCount(){ return _deadCount; }
 

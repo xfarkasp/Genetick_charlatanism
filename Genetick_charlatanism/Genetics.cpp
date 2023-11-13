@@ -50,7 +50,6 @@ void Genetics::initFirstGen(){
 		firstGen.push_back(currGene);
 	}
 	_generations.push_back(firstGen);
-
 }
 
 int Genetics::fitnessFunction(Gene gen) {
@@ -146,7 +145,7 @@ void Genetics::createNewGen(std::vector<Gene> generation) {
 	std::random_device rd;  // Used to seed the generator
 	std::mt19937 gen(rd()); // Mersenne Twister engine
 	std::uniform_int_distribution<int> distribution(0, newGeneration.size() - 1);
-	for (size_t i = 0; i < POP_SIZE /2; i++) {
+	for (size_t i = 2; i < (POP_SIZE /2); i++) {
 		int randGen1 = distribution(gen);
 		int randGen2 = distribution(gen);
 		while (randGen1 != randGen2) {
@@ -168,7 +167,6 @@ void Genetics::createNewGen(std::vector<Gene> generation) {
 		it.fitnessValue = fitnessFunction(it);
 		
 	}
-
 	_generations.push_back(newGeneration);
 }
 

@@ -13,7 +13,6 @@ class Genetics {
 public:
 	Genetics(std::vector<std::vector<int>> gardenState);
 	int fitnessFunction(Gene gen);
-	void mutateGene(Gene gen);
 	std::pair<Gene, Gene> crossGenes(Gene gen1, Gene gen2);
 	void initFirstGen();
 	Gene roullete(std::vector<Gene> generation);
@@ -26,5 +25,5 @@ private:
 	std::vector<std::vector<Gene>> _generations;
 	std::vector<std::vector<int>> _gardenState;
 	int geneNumbering = 0;
-	unsigned int POP_SIZE = 500;
+	unsigned int POP_SIZE = 400;
 };

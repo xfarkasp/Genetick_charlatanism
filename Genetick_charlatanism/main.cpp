@@ -46,6 +46,4 @@ int main() {
 	std::cout << std::endl;
 
 	std::unique_ptr<Genetics> genetics = std::make_unique<Genetics>(garden);
-
-
 }
