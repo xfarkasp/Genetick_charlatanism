@@ -4,7 +4,6 @@
 #include <random>
 
 Genetics::Genetics(std::vector<std::vector<int>> gardenState) {
-	_currGen = 1;
 	_gardenState = gardenState;
 	evolution();
 };
@@ -19,7 +18,7 @@ void Genetics::initFirstGen(){
 	std::random_device rd;  // Used to seed the generator
 	std::mt19937 gen(rd()); // Mersenne Twister engine
 
-	for (size_t i = 0; i < _gardenState.size(); i++) {
+	for (size_t i = 0; i < POP_SIZE; i++) {
 		//create a gene struct
 		Gene currGene;
 		currGene.id = geneNumbering++;
@@ -57,7 +56,7 @@ void Genetics::initFirstGen(){
 int Genetics::fitnessFunction(Gene gen) {
 	int score = 0;
 	std::vector<std::vector<int>> changedGarden;
-	std::unique_ptr<Gardener> monk = std::make_unique<Gardener>(_gardenState, _currGen);
+	std::unique_ptr<Gardener> monk = std::make_unique<Gardener>(_gardenState, 1);
 	for (auto it : gen.startingPositions) {
 		monk->setPositions(it.first, it.second);
 		changedGarden = monk->traverse();
@@ -136,7 +135,6 @@ void Genetics::createNewGen(std::vector<Gene> generation) {
 		
 	}
 	std::sort(newGeneration.begin(), newGeneration.end(), compareByFitness);
-	//std::cout << "BEst gene fitness: " << newGeneration.at(0).fitnessValue << std::endl;
 	
 	std::vector<Gene> crossedGenes;
 	std::pair<Gene, Gene> offsprings;
@@ -148,7 +146,7 @@ void Genetics::createNewGen(std::vector<Gene> generation) {
 	std::random_device rd;  // Used to seed the generator
 	std::mt19937 gen(rd()); // Mersenne Twister engine
 	std::uniform_int_distribution<int> distribution(0, newGeneration.size() - 1);
-	for (size_t i = 0; i < _generations.at(0).size()/2; i++) {
+	for (size_t i = 0; i < POP_SIZE /2; i++) {
 		int randGen1 = distribution(gen);
 		int randGen2 = distribution(gen);
 		while (randGen1 != randGen2) {

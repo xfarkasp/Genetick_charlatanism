@@ -120,27 +120,6 @@ bool Gardener::goLeft() {
 }
 
 void Gardener::obstacleHandler() {
-	// Create a random number generator engine
-	std::random_device rd;  // Used to seed the generator
-	std::mt19937 gen(rd()); // Mersenne Twister engine
-	std::uniform_int_distribution<int> directionRandomizer(0, 3);
-	int randomValue = directionRandomizer(gen);
-	/*if (randomValue == 0) {
-		while (goDown())
-			continue;
-	}
-	else if (randomValue == 1) {
-		while (goUp())
-			continue;
-	}
-	else if (randomValue == 2) {
-		while (goRight())
-			continue;
-	}
-	else if (randomValue == 3) {
-		while (goLeft())
-			continue;
-	}*/
 	while (_validMove && !_ringOut) {
 		_validMove = false;
 		if (_lastAction != "UP" && goDown()) {

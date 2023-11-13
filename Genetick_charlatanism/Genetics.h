@@ -4,10 +4,8 @@
 struct Gene
 {
 	int id;
-	bool elitism;
 	int genNumber;
 	int fitnessValue;
-	//std::vector<std::vector<int>> gardenState;
 	std::vector<std::pair<int, int>> startingPositions;
 };
 
@@ -24,9 +22,9 @@ public:
 	void mutateGene(Gene& gene, double mutationRate);
 
 private:
-	int _currGen;
-	const size_t MAX_GENERATIONS = 10000000;
+	const size_t MAX_GENERATIONS = 1000;
 	std::vector<std::vector<Gene>> _generations;
 	std::vector<std::vector<int>> _gardenState;
 	int geneNumbering = 0;
+	unsigned int POP_SIZE = 500;
 };
