@@ -71,6 +71,7 @@ int Genetics::fitnessFunction(Gene gen) {
 		}
 	}
 	if (notVisitedCount == 0 && monk->getDeadCount() == 0) {
+		std::cout << "Best fitness: " << score << std::endl;
 		std::cout << "solution found in gen: " << _generations.size() << std::endl;
 		monk->printGarden();
 		exit(0);
@@ -119,6 +120,7 @@ void Genetics::createNewGen(std::vector<Gene> generation) {
 	std::vector<Gene> newGeneration;
 	std::sort(generation.begin(), generation.end(), compareByFitness);
 	newGeneration.push_back(generation.at(0));
+	std::cout << "Best fitness: " << generation.at(0).fitnessValue << std::endl;
 	size_t originalGenSize = generation.size();
 	for (size_t i = 0; i < 2; i++) {
 		Gene chosenOne = roullete(generation);

@@ -25,5 +25,5 @@ private:
 	std::vector<std::vector<Gene>> _generations;
 	std::vector<std::vector<int>> _gardenState;
 	int geneNumbering = 0;
-	unsigned int POP_SIZE = 400;
+	unsigned int POP_SIZE = 500;
 };
